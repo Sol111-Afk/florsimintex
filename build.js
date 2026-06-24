@@ -52,7 +52,7 @@ const services = [
   { ico: 'crane', tag: 'Agabaritic', t: 'Transport utilaje & agabaritic', d: 'Mutăm excavatoare, buldoexcavatoare, tractoare și utilaje grele cu trailer dedicat. Transport mașini noi sau avariate, dube, remorci, bărci și rulote.', img: 'transport-utilaje.jpg' },
   { ico: 'excavator', tag: 'Cu sau fără operator', t: 'Închiriere utilaje', d: 'Excavatoare și utilaje de construcții disponibile pentru închiriere în zona Comarnic. Punem la dispoziție și transportul la punctul de lucru.', img: 'inchiriere-utilaje.jpg' },
   { ico: 'wash', tag: 'Interior & exterior', t: 'Spălătorie auto', d: 'Spălare completă pentru autoturisme și SUV-uri, exterior și interior. Mașina ta arată ca nouă cât rezolvi restul treburilor.', img: '' },
-  { ico: 'atv', tag: 'ATV · Moto', t: 'Transport ATV & moto', d: 'Transportăm în siguranță ATV-uri, motociclete și jet-ski. Tot de aici poți închiria ATV-uri pentru ture pe munte.', img: '' },
+  { ico: 'atv', tag: 'Ture pe munte', t: 'Închiriere ATV-uri', d: 'Închiriază ATV și pornește pe traseele de pe Valea Prahovei. Modele pentru începători și avansați, echipament inclus — o zi de adrenalină chiar din Comarnic.', img: 'inchiriere-atv.jpg' },
 ];
 
 const whyUs = [
