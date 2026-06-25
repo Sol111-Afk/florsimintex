@@ -48,10 +48,10 @@ const ico = {
 /* ----------------------------------------------------------------- SERVICII */
 const services = [
   { ico: 'tow', tag: 'NON-STOP 24/7', t: 'Tractări & asistență rutieră', d: 'Intervenim non-stop pe DN1 și Valea Prahovei. Autoplatforme moderne, trolii electrice și hidraulice pentru orice situație — pană, accident sau defecțiune.', img: 'asistenta-rutiera.jpg' },
-  { ico: 'tire', tag: 'Luni–Sâm 08–18', t: 'Vulcanizare auto', d: 'Anvelope autoturisme, camioane și utilaje. Dejantare, echilibrare și service roți, rapid și corect. Reparăm și pe loc dacă te-a prins pana în drum.', img: 'vulcanizare-atelier.jpg' },
+  { ico: 'tire', tag: 'Luni–Sâm 08–17', t: 'Vulcanizare auto', d: 'Anvelope autoturisme, camioane și utilaje. Dejantare, echilibrare și service roți, rapid și corect. Reparăm și pe loc dacă te-a prins pana în drum.', img: 'vulcanizare-atelier.jpg' },
   { ico: 'crane', tag: 'Agabaritic', t: 'Transport utilaje & agabaritic', d: 'Mutăm excavatoare, buldoexcavatoare, tractoare și utilaje grele cu trailer dedicat. Transport mașini noi sau avariate, dube, remorci, bărci și rulote.', img: 'transport-utilaje.jpg' },
-  { ico: 'excavator', tag: 'Cu sau fără operator', t: 'Închiriere utilaje', d: 'Excavatoare și utilaje de construcții disponibile pentru închiriere în zona Comarnic. Punem la dispoziție și transportul la punctul de lucru.', img: 'inchiriere-utilaje.jpg' },
-  { ico: 'wash', tag: 'Interior & exterior', t: 'Spălătorie auto', d: 'Spălare completă pentru autoturisme și SUV-uri, exterior și interior. Mașina ta arată ca nouă cât rezolvi restul treburilor.', img: '' },
+  { ico: 'excavator', tag: 'Numai cu deservent', t: 'Închiriere utilaje', d: 'Excavatoare și utilaje de construcții pentru închiriere în zona Comarnic, numai cu deservent calificat. Asigurăm și transportul la punctul de lucru.', img: 'inchiriere-utilaje.jpg' },
+  { ico: 'wash', tag: 'Self wash · non-stop', t: 'Spălătorie self wash', d: 'Spălătorie self-service deschisă non-stop. Speli mașina când vrei tu, cu echipamente moderne și jet de înaltă presiune, la orice oră din zi sau din noapte.', img: '' },
   { ico: 'atv', tag: 'Ture pe munte', t: 'Închiriere ATV-uri', d: 'Închiriază ATV și pornește pe traseele de pe Valea Prahovei. Modele pentru începători și avansați, echipament inclus — o zi de adrenalină chiar din Comarnic.', img: 'inchiriere-atv.jpg' },
 ];
 
@@ -112,9 +112,9 @@ function body() {
     <div class="hero-media"><img src="assets/images/hero-tractare.jpg" alt="Autospeciala FLORSIMINTEX tractând un autoturism pe DN1" width="1600" height="1200" fetchpriority="high"></div>
     <div class="hero-overlay"></div>
     <div class="wrap hero-inner">
-      <p class="eyebrow reveal"><span class="ping"></span> Non-stop pe DN1 · Valea Prahovei</p>
-      <h1 class="reveal">Ai rămas în pană<br>pe drum? <em>Te scoatem noi.</em></h1>
-      <p class="lead reveal">Tractări și asistență rutieră 24/7 în ${C.city} și pe toată Valea Prahovei. Plus vulcanizare, transport utilaje și spălătorie — toate la aceeași echipă.</p>
+      <p class="eyebrow reveal"><span class="ping"></span> Asistență rutieră non-stop · DN1 · Valea Prahovei</p>
+      <h1 class="reveal">Mai bine <em>te ajutăm noi,</em><br>decât te scoatem noi.</h1>
+      <p class="lead reveal">Tractări și asistență rutieră 24/7 în ${C.city} și pe toată Valea Prahovei. Plus vulcanizare, închiriere utilaje și spălătorie self wash — toate la aceeași echipă.</p>
       <div class="hero-actions reveal">
         <a class="btn btn-call" href="tel:${C.telRaw}">${ico.phone}<span>Sună acum · ${C.tel}</span></a>
         <a class="btn btn-wa" href="${waLink()}" target="_blank" rel="noopener">${ico.wa}<span>Scrie pe WhatsApp</span></a>
@@ -241,9 +241,9 @@ function body() {
         <h3>Program</h3>
         <table>
           <tr><td>Tractări & asistență rutieră</td><td class="hl">NON-STOP</td></tr>
-          <tr><td>Închiriere & transport utilaje</td><td class="hl">NON-STOP</td></tr>
-          <tr><td>Vulcanizare</td><td>Luni–Sâmbătă · 08–18</td></tr>
-          <tr><td>Spălătorie auto</td><td>Luni–Sâmbătă · 08–18</td></tr>
+          <tr><td>Spălătorie self wash</td><td class="hl">NON-STOP</td></tr>
+          <tr><td>Vulcanizare</td><td>Luni–Sâmbătă · 08–17</td></tr>
+          <tr><td>Închiriere utilaje · cu deservent</td><td>Luni–Sâmbătă · 08–17</td></tr>
         </table>
         <p class="hours-note">${ico.clock} Pe drum, la orice oră — asistența rutieră răspunde mereu.</p>
       </div>
@@ -260,7 +260,7 @@ function body() {
     <nav class="foot-nav" aria-label="Footer">
       <a href="#servicii">Servicii</a><a href="#acoperire">Acoperire</a><a href="#recenzii">Recenzii</a><a href="#contact">Contact</a>
     </nav>
-    <p class="foot-legal">© <span id="y"></span> ${C.legal} · CUI ${C.cui} · ${C.address}, ${C.county}<br>Tractări · Vulcanizare · Închiriere utilaje · Spălătorie auto — non-stop pe DN1.</p>
+    <p class="foot-legal">© <span id="y"></span> ${C.legal} · CUI ${C.cui} · ${C.address}, ${C.county}<br>Tractări · Vulcanizare · Închiriere utilaje · Spălătorie self wash — non-stop pe DN1.</p>
   </div>
 </footer>
 
