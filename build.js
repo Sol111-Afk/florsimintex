@@ -198,7 +198,7 @@ function body() {
         ${C.areas.map(a => `<span class="area-pill">${ico.pin}${a}</span>`).join('')}
       </div>
       <div class="map-embed reveal">
-        <iframe title="Hartă FLORSIMINTEX — ${C.address}" src="https://www.google.com/maps?q=${encodeURIComponent('Str. Republicii 1 Bis, Comarnic, Prahova')}&z=12&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe title="Hartă FLORSIMINTEX — ${C.address}" src="https://www.google.com/maps?q=${encodeURIComponent('VULCANIZARE AUTO COMARNIC, Str. Republicii 1 Bis, Comarnic, Prahova')}&z=15&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
       <div class="map-cta reveal">
         <div>
