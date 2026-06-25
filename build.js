@@ -69,10 +69,11 @@ const stats = [
   ['100%', 'autoplatforme moderne'],
 ];
 
+/* Recenzii REALE de pe Google (doar cele pozitive cu text — verificate, neinventate) */
 const reviews = [
-  { n: 'Radu Coman', meta: 'Local Guide · Google', s: 5, t: 'Servicii rapide și de calitate. Recomand cu încredere.' },
-  { n: 'Mihaela Nedelcu', meta: 'Google', s: 5, t: 'Oameni serioși, te ajută imediat. Mulțumesc!' },
-  { n: 'Noemi Moise', meta: 'Google', s: 5, t: 'Au venit repede și au rezolvat fără bătăi de cap. Profesioniști.' },
+  { n: 'Radu Coman', meta: 'Local Guide · Google', s: 5, t: 'Servicii rapide și de calitate 🔥', date: 'acum 10 luni' },
+  { n: 'Mihaela Nedelcu', meta: 'Local Guide · Google', s: 5, t: 'Mulțumim și vă așteptăm din nou.', date: 'acum 6 luni' },
+  { n: 'Boiangiu', meta: 'Google', s: 5, t: 'Super.', date: 'acum 5 ani' },
 ];
 
 /* ----------------------------------------------------------------- HELPERE */
@@ -215,7 +216,7 @@ function body() {
       <header class="sec-head reveal">
         <p class="kicker">Ce spun clienții</p>
         <h2>Oameni pe care i-am scos din drum</h2>
-        <div class="rating-line reveal"><span class="stars">${stars(5)}</span> <b>5,0</b> pe Google · <a class="rating-link" href="${C.mapsTractari}" target="_blank" rel="noopener">vezi recenziile</a></div>
+        <div class="rating-line reveal"><span class="stars">${stars(5)}</span> <b>5,0</b> pe Google pentru asistență rutieră · <a class="rating-link" href="${C.mapsTractari}" target="_blank" rel="noopener">vezi recenziile</a></div>
       </header>
       <div class="reviews" id="reviews-track">
         ${reviews.map(r => `
