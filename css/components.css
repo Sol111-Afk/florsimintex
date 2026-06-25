@@ -94,7 +94,7 @@
 .map-cta span{display:block;color:var(--muted);font-size:.92rem}
 
 /* ---------------- RECENZII ---------------- */
-.rating-line{display:flex;align-items:center;gap:.6rem;margin-top:1rem;color:var(--muted)}
+.rating-line{display:flex;align-items:center;flex-wrap:wrap;gap:.4rem .6rem;margin-top:1rem;color:var(--muted)}
 .rating-line b{color:var(--text)}
 .stars{display:inline-flex;gap:2px}
 .stars .star{width:18px;height:18px;fill:var(--accent2);stroke:none}
@@ -150,4 +150,83 @@
 }
 @media (max-width:480px){
   .hero-actions .btn{width:100%;justify-content:center}
+}
+
+/* ============================================================
+   UPGRADE UI — hero cinematic, semnătură, carduri, hartă,
+   carusel recenzii, bară de apel mobil
+   ============================================================ */
+
+/* ---------------- HERO: far care mătură (o singură dată) ---------------- */
+.hero-sweep{position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(74deg,transparent 32%,color-mix(in srgb,var(--accent2) 60%,transparent) 46%,rgba(255,255,255,.10) 50%,transparent 64%);
+  transform:translateX(-130%);animation:heroSweep 2.3s var(--ease) .35s 1 both}
+@keyframes heroSweep{to{transform:translateX(130%)}}
+
+/* ---------------- SEMNĂTURĂ: banda hazard = progres de citire ---------------- */
+.chevron-bar{position:relative;overflow:hidden}
+.chevron-bar__fill{position:absolute;inset:0 100% 0 0;display:block;
+  background:repeating-linear-gradient(-45deg,var(--accent) 0 16px,#f3f3f0 16px 32px);
+  background-size:45px 100%;will-change:right,background-position;transition:right .12s linear}
+
+/* ---------------- CARD: spotlight care urmărește cursorul + placeholder ---------------- */
+.card{transform-style:preserve-3d;will-change:transform}
+.card-glow{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;transition:opacity .35s var(--ease);
+  background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--accent) 22%,transparent),transparent 62%)}
+.card:hover .card-glow{opacity:1}
+.card-body{position:relative;z-index:2}
+.card-media--ph{display:grid;place-items:center;position:relative;
+  background:radial-gradient(120% 120% at 70% 10%,color-mix(in srgb,var(--accent) 12%,var(--surface2)),var(--surface2))}
+.card-media--ph .ph-ico{display:grid;place-items:center;opacity:.9}
+.card-media--ph .ph-ico svg{width:88px;height:88px;fill:none;stroke:var(--accent);stroke-width:1.6;
+  stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 8px 18px rgba(0,0,0,.4))}
+
+/* ---------------- STATS: panou tip bord de mașină ---------------- */
+.stats{position:relative}
+.stat b{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+
+/* ---------------- HARTĂ încorporată ---------------- */
+.map-embed{position:relative;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);
+  margin-bottom:18px;box-shadow:var(--shadow);background:var(--surface)}
+.map-embed iframe{display:block;width:100%;height:clamp(260px,38vw,400px);border:0;
+  filter:grayscale(.35) contrast(1.05) brightness(.92)}
+.map-embed .map-pin{position:absolute;left:50%;top:46%;transform:translate(-50%,-100%);pointer-events:none;
+  color:var(--accent);filter:drop-shadow(0 6px 10px rgba(0,0,0,.5))}
+.map-embed .map-pin svg{width:34px;height:34px;fill:var(--accent);stroke:#fff;stroke-width:1.4}
+
+/* ---------------- RECENZII: carusel mobil + dots + link Google ---------------- */
+.rating-link{color:var(--accent);font-weight:700;white-space:nowrap;border-bottom:1px solid color-mix(in srgb,var(--accent) 50%,transparent)}
+.rating-link:hover{color:var(--text);border-color:currentColor}
+.review-dots{display:none}
+.reviews-all{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.6rem;font-weight:700;color:var(--text);
+  border:1px solid var(--line);padding:.7em 1.2em;border-radius:999px;transition:.25s}
+.reviews-all svg{width:18px;height:18px;fill:var(--accent2);stroke:none}
+.reviews-all:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+
+@media (max-width:720px){
+  .reviews{display:flex;flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x mandatory;
+    gap:14px;scroll-padding-inline:var(--pad);
+    margin-inline:calc(var(--pad) * -1);padding-inline:var(--pad);padding-bottom:6px;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .reviews::-webkit-scrollbar{display:none}
+  .review{flex:0 0 84%;scroll-snap-align:center}
+  .review-dots{display:flex;gap:8px;justify-content:center;margin-top:18px}
+  .review-dots .dot{width:8px;height:8px;padding:0;border-radius:50%;
+    background:color-mix(in srgb,var(--muted) 45%,transparent);transition:width .25s var(--ease),background .25s}
+  .review-dots .dot[aria-current="true"]{background:var(--accent);width:24px;border-radius:5px}
+}
+
+/* ---------------- BARĂ FIXĂ DE APEL (mobil) ---------------- */
+.callbar{display:none}
+@media (max-width:880px){
+  .callbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:95;
+    box-shadow:0 -8px 28px rgba(0,0,0,.45);padding-bottom:env(safe-area-inset-bottom)}
+  .callbar-call{flex:1;display:flex;align-items:center;justify-content:center;gap:.55rem;
+    background:var(--accent);color:#fff;font-family:var(--font-display);letter-spacing:.04em;
+    text-transform:uppercase;font-size:1.12rem;padding:1.05em 1em}
+  .callbar-call svg{width:22px;height:22px;fill:currentColor}
+  .callbar-wa{flex:none;display:grid;place-items:center;width:66px;background:var(--wa);color:#fff}
+  .callbar-wa svg{width:30px;height:30px;fill:currentColor}
+  .dock{display:none}
+  body{padding-bottom:62px}
 }

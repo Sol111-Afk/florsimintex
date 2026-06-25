@@ -49,3 +49,36 @@ body{
 .site-foot{position:relative}
 .site-foot::before{content:"";position:absolute;top:0;left:0;right:0;height:6px;
   background:repeating-linear-gradient(90deg,var(--accent2) 0 38px,transparent 38px 76px)}
+
+/* ---- GALBEN HAZARD ca a doua voce (nu doar roșu) ---- */
+
+/* tag-ul de card = plăcuță galbenă lipită, ca pe utilaje */
+.card-tag{align-self:flex-start;background:var(--accent2);color:#1a1206;
+  padding:.34em .7em;border-radius:4px;box-shadow:0 2px 0 color-mix(in srgb,var(--accent2) 50%,#000)}
+
+/* colț hazard tăiat pe fiecare card — semnătura firmei */
+.card{border-radius:14px}
+.card::after{content:"";position:absolute;top:0;right:0;z-index:3;width:26px;height:26px;
+  background:repeating-linear-gradient(-45deg,var(--accent2) 0 5px,#1a1206 5px 10px);
+  clip-path:polygon(100% 0,0 0,100% 100%);opacity:.92}
+
+/* placeholder serviciu fără poză = textură hazard + iconiță galbenă */
+.card-media--ph{background:
+  repeating-linear-gradient(-45deg,color-mix(in srgb,var(--accent2) 9%,transparent) 0 14px,transparent 14px 28px),
+  radial-gradient(120% 120% at 70% 10%,color-mix(in srgb,var(--accent) 12%,var(--surface2)),var(--surface2))}
+.card-media--ph .ph-ico svg{stroke:var(--accent2)}
+
+/* stats = panou „bord de mașină" cu bandă hazard sus */
+.stats{border:1px solid var(--line);border-radius:16px;overflow:hidden;
+  background:linear-gradient(180deg,var(--surface),transparent)}
+.stats::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;z-index:1;
+  background:repeating-linear-gradient(90deg,var(--accent2) 0 22px,#1a1206 22px 44px);opacity:.9}
+.stat{border:0;border-radius:0;background:none;border-right:1px solid var(--line)}
+.stat:last-child{border-right:0}
+@media (max-width:880px){
+  .stat:nth-child(2n){border-right:0}
+  .stat:nth-child(-n+2){border-bottom:1px solid var(--line)}
+}
+
+/* harta — pin hazard galben pe accent roșu */
+.map-embed{border-color:color-mix(in srgb,var(--accent) 30%,var(--line))}

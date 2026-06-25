@@ -102,7 +102,7 @@ function body() {
       <button class="burger" aria-label="Meniu" aria-expanded="false"><span></span><span></span><span></span></button>
     </div>
   </div>
-  <div class="chevron-bar" aria-hidden="true"></div>
+  <div class="chevron-bar" aria-hidden="true"><span class="chevron-bar__fill"></span></div>
 </header>
 
 <main id="main">
@@ -111,6 +111,7 @@ function body() {
   <section class="hero">
     <div class="hero-media"><img src="assets/images/hero-tractare.jpg" alt="Autospeciala FLORSIMINTEX tractând un autoturism pe DN1" width="1600" height="1200" fetchpriority="high"></div>
     <div class="hero-overlay"></div>
+    <div class="hero-sweep" aria-hidden="true"></div>
     <div class="wrap hero-inner">
       <p class="eyebrow reveal"><span class="ping"></span> Non-stop pe DN1 · Valea Prahovei</p>
       <h1 class="reveal">Ai rămas în pană<br>pe drum? <em>Te ajutăm noi.</em></h1>
@@ -149,8 +150,11 @@ function body() {
       </header>
       <div class="services">
         ${services.map((s, i) => `
-        <article class="card reveal${s.img ? ' has-img' : ''}" style="--i:${i}">
-          ${s.img ? `<div class="card-media"><img src="assets/images/${s.img}" alt="${s.t} — FLORSIMINTEX ${C.city}" width="1400" height="1050" loading="lazy"></div>` : ''}
+        <article class="card reveal${s.img ? ' has-img' : ' no-img'}" style="--i:${i}">
+          <span class="card-glow" aria-hidden="true"></span>
+          ${s.img
+            ? `<div class="card-media"><img src="assets/images/${s.img}" alt="${s.t} — FLORSIMINTEX ${C.city}" width="1400" height="1050" loading="lazy"></div>`
+            : `<div class="card-media card-media--ph" aria-hidden="true"><span class="ph-ico">${ico[s.ico]}</span></div>`}
           <div class="card-body">
             <span class="card-ico">${ico[s.ico]}</span>
             <span class="card-tag">${s.tag}</span>
@@ -192,6 +196,9 @@ function body() {
       <div class="areas reveal">
         ${C.areas.map(a => `<span class="area-pill">${ico.pin}${a}</span>`).join('')}
       </div>
+      <div class="map-embed reveal">
+        <iframe title="Hartă FLORSIMINTEX — ${C.address}" src="https://www.google.com/maps?q=${encodeURIComponent('Str. Republicii 1 Bis, Comarnic, Prahova')}&z=12&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
       <div class="map-cta reveal">
         <div>
           <b>${C.address}</b>
@@ -208,16 +215,18 @@ function body() {
       <header class="sec-head reveal">
         <p class="kicker">Ce spun clienții</p>
         <h2>Oameni pe care i-am scos din drum</h2>
-        <div class="rating-line reveal"><span class="stars">${stars(5)}</span> <b>5,0</b> pe Google pentru asistență rutieră</div>
+        <div class="rating-line reveal"><span class="stars">${stars(5)}</span> <b>5,0</b> pe Google · <a class="rating-link" href="${C.mapsTractari}" target="_blank" rel="noopener">vezi recenziile</a></div>
       </header>
-      <div class="reviews">
+      <div class="reviews" id="reviews-track">
         ${reviews.map(r => `
         <figure class="review reveal">
           <span class="stars">${stars(r.s)}</span>
           <blockquote>${r.t}</blockquote>
-          <figcaption><span class="avatar">${r.n[0]}</span><span><b>${r.n}</b><i>${r.meta}</i></span></figcaption>
+          <figcaption><span class="avatar">${r.n[0]}</span><span><b>${r.n}</b><i>${r.meta}${r.date ? ' · ' + r.date : ''}</i></span></figcaption>
         </figure>`).join('')}
       </div>
+      <div class="review-dots" aria-label="Navigare recenzii"></div>
+      <a class="reviews-all reveal" href="${C.mapsTractari}" target="_blank" rel="noopener">${ico.star}<span>Vezi toate recenziile pe Google</span></a>
     </div>
   </section>
 
@@ -264,10 +273,16 @@ function body() {
   </div>
 </footer>
 
-<!-- BUTOANE FLOTANTE -->
+<!-- BUTOANE FLOTANTE (desktop) -->
 <div class="dock">
   <a class="dock-btn dock-call" href="tel:${C.telRaw}" aria-label="Sună acum">${ico.phone}</a>
   <a class="dock-btn dock-wa" href="${waLink()}" target="_blank" rel="noopener" aria-label="Scrie pe WhatsApp">${ico.wa}</a>
+</div>
+
+<!-- BARĂ FIXĂ DE APEL (mobil) -->
+<div class="callbar">
+  <a class="callbar-call" href="tel:${C.telRaw}">${ico.phone}<span>Sună acum · ${C.tel}</span></a>
+  <a class="callbar-wa" href="${waLink()}" target="_blank" rel="noopener" aria-label="Scrie pe WhatsApp">${ico.wa}</a>
 </div>
 `;
 }

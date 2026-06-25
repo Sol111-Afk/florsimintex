@@ -72,4 +72,77 @@
     var onScroll = function () { head.classList.toggle('scrolled', window.scrollY > 8); };
     addEventListener('scroll', onScroll, { passive: true }); onScroll();
   }
+
+  /* parallax subtil pe hero + banda hazard ca progres de citire */
+  var heroImg = document.querySelector('.hero-media img');
+  var chevFill = document.querySelector('.chevron-bar__fill');
+  if (!reduce && (heroImg || chevFill)) {
+    var fxTick = false;
+    var runFx = function () {
+      var y = window.scrollY || 0;
+      var doc = document.documentElement;
+      var max = (doc.scrollHeight - doc.clientHeight) || 1;
+      var p = Math.min(Math.max(y / max, 0), 1);
+      if (chevFill) {
+        chevFill.style.right = (100 - p * 100).toFixed(2) + '%';
+        chevFill.style.backgroundPositionX = (-y * 0.35) + 'px';
+      }
+      if (heroImg && y < innerHeight) {
+        heroImg.style.transform = 'translate3d(0,' + (y * 0.08).toFixed(1) + 'px,0) scale(1.12)';
+      }
+      fxTick = false;
+    };
+    if (heroImg) { heroImg.style.transformOrigin = 'center'; heroImg.style.transform = 'scale(1.12)'; }
+    addEventListener('scroll', function () { if (!fxTick) { fxTick = true; requestAnimationFrame(runFx); } }, { passive: true });
+    runFx();
+  }
+
+  /* carusel recenzii pe mobil: dots + sincronizare cu swipe */
+  var track = document.getElementById('reviews-track');
+  var dotsWrap = document.querySelector('.review-dots');
+  if (track && dotsWrap) {
+    var rcards = [].slice.call(track.querySelectorAll('.review'));
+    if (rcards.length > 1) {
+      rcards.forEach(function (c, i) {
+        var b = document.createElement('button');
+        b.className = 'dot'; b.type = 'button';
+        b.setAttribute('aria-label', 'Recenzia ' + (i + 1));
+        if (i === 0) b.setAttribute('aria-current', 'true');
+        b.addEventListener('click', function () {
+          c.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', inline: 'center', block: 'nearest' });
+        });
+        dotsWrap.appendChild(b);
+      });
+      var dots = [].slice.call(dotsWrap.children);
+      if ('IntersectionObserver' in window) {
+        var rio = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            if (!en.isIntersecting) return;
+            var idx = rcards.indexOf(en.target);
+            dots.forEach(function (d, di) {
+              if (di === idx) d.setAttribute('aria-current', 'true');
+              else d.removeAttribute('aria-current');
+            });
+          });
+        }, { root: track, threshold: 0.6 });
+        rcards.forEach(function (c) { rio.observe(c); });
+      }
+    }
+  }
+
+  /* carduri: tilt 3D mic + spotlight care urmărește cursorul (doar desktop, mouse) */
+  var fine = matchMedia('(hover:hover) and (pointer:fine)').matches;
+  if (fine && !reduce) {
+    [].slice.call(document.querySelectorAll('.services .card')).forEach(function (card) {
+      card.addEventListener('pointermove', function (e) {
+        var r = card.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+        card.style.setProperty('--mx', (x * 100).toFixed(1) + '%');
+        card.style.setProperty('--my', (y * 100).toFixed(1) + '%');
+        var rx = (0.5 - y) * 5, ry = (x - 0.5) * 5;
+        card.style.transform = 'perspective(820px) rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg) translateY(-6px)';
+      });
+      card.addEventListener('pointerleave', function () { card.style.transform = ''; });
+    });
+  }
 })();
