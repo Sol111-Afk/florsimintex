@@ -11,7 +11,7 @@
   --accent2:#ffc20e;       /* galben hazard */
   --accent-ink:#fff;
   --wa:#25d366; --wa-ink:#0a3d1f;
-  --font-display:'Anton',Impact,'Arial Narrow Bold',sans-serif;
+  --font-display:'Anton','Anton-fb',Impact,'Arial Narrow Bold',sans-serif;
   --hero-grad:linear-gradient(180deg,rgba(6,7,9,.30) 0%,rgba(6,7,9,.55) 50%,rgba(6,7,9,.94) 100%);
 }
 

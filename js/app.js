@@ -145,4 +145,62 @@
       card.addEventListener('pointerleave', function () { card.style.transform = ''; });
     });
   }
+
+  /* hartă „facade": încarcă iframe-ul Google DOAR la click (economie ~1MB la load) */
+  var facade = document.querySelector('.map-facade');
+  if (facade) {
+    var loadMap = function () {
+      var src = facade.getAttribute('data-map');
+      if (!src) return;
+      var f = document.createElement('iframe');
+      f.title = 'Hartă FLORSIMINTEX';
+      f.src = src;
+      f.loading = 'lazy';
+      f.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+      facade.innerHTML = '';
+      facade.classList.remove('map-facade');
+      facade.removeAttribute('role'); facade.removeAttribute('tabindex'); facade.removeAttribute('aria-label');
+      facade.appendChild(f);
+    };
+    facade.addEventListener('click', loadMap);
+    facade.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); loadMap(); }
+    });
+  }
+
+  /* „Sunt blocat aici": trimite locația GPS live pe WhatsApp */
+  [].slice.call(document.querySelectorAll('a[data-geo]')).forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      if (!navigator.geolocation) return; /* fallback: linkul WhatsApp normal */
+      e.preventDefault();
+      var wa = el.getAttribute('data-wa');
+      var fallback = el.getAttribute('href');
+      var done = false;
+      var go = function (href) { if (!done) { done = true; window.open(href, '_blank', 'noopener'); } };
+      el.classList.add('loc-loading');
+      navigator.geolocation.getCurrentPosition(function (pos) {
+        el.classList.remove('loc-loading');
+        var lat = pos.coords.latitude.toFixed(6), lng = pos.coords.longitude.toFixed(6);
+        var msg = encodeURIComponent('Bună ziua! Am rămas în pană și am nevoie de tractare. Sunt blocat aici: https://maps.google.com/?q=' + lat + ',' + lng);
+        go('https://wa.me/' + wa + '?text=' + msg);
+      }, function () {
+        el.classList.remove('loc-loading');
+        go(fallback);
+      }, { enableHighAccuracy: true, timeout: 9000, maximumAge: 60000 });
+    });
+  });
+
+  /* pauză animație ticker când nu e vizibil (economie CPU/baterie) */
+  var ticker = document.querySelector('.ticker-track');
+  if (ticker && !reduce && 'IntersectionObserver' in window) {
+    var tio = new IntersectionObserver(function (en) {
+      ticker.style.animationPlayState = en[0].isIntersecting ? 'running' : 'paused';
+    }, { threshold: 0 });
+    tio.observe(document.querySelector('.ticker'));
+  }
+
+  /* service worker — offline + load instant repetat */
+  if ('serviceWorker' in navigator) {
+    addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
+  }
 })();

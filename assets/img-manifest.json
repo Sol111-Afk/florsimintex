@@ -1,0 +1,81 @@
+{
+  "asistenta-rutiera": {
+    "w": 1000,
+    "h": 1333,
+    "ar": 1.333,
+    "widths": [
+      480,
+      800
+    ]
+  },
+  "hero-tractare": {
+    "w": 1600,
+    "h": 1200,
+    "ar": 0.75,
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ]
+  },
+  "inchiriere-atv": {
+    "w": 1400,
+    "h": 1050,
+    "ar": 0.75,
+    "widths": [
+      480,
+      800,
+      1200
+    ]
+  },
+  "inchiriere-utilaje": {
+    "w": 1100,
+    "h": 986,
+    "ar": 0.8964,
+    "widths": [
+      480,
+      800
+    ]
+  },
+  "tractare-platforma": {
+    "w": 1400,
+    "h": 1050,
+    "ar": 0.75,
+    "widths": [
+      480,
+      800,
+      1200
+    ]
+  },
+  "transport-utilaje": {
+    "w": 1400,
+    "h": 1050,
+    "ar": 0.75,
+    "widths": [
+      480,
+      800,
+      1200
+    ]
+  },
+  "vulcanizare-atelier": {
+    "w": 1400,
+    "h": 1162,
+    "ar": 0.83,
+    "widths": [
+      480,
+      800,
+      1200
+    ]
+  },
+  "vulcanizare-interior": {
+    "w": 1400,
+    "h": 1050,
+    "ar": 0.75,
+    "widths": [
+      480,
+      800,
+      1200
+    ]
+  }
+}

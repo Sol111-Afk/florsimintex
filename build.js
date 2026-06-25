@@ -24,7 +24,36 @@ const C = {
   mapsTractari: 'https://maps.app.goo.gl/4gYi3hnEfFh5eGaT8',
   areas: ['DN1', 'Comarnic', 'Posada', 'Secăria', 'Talea', 'Sinaia', 'Breaza', 'Nistorești', 'Câmpina', 'Bănești'],
   waMsg: encodeURIComponent('Bună ziua! Am nevoie de ajutor — '),
+  site: 'https://sol111-afk.github.io/florsimintex',
+  geo: { lat: 45.2486, lng: 25.6361 },
+  slogan: 'Suni. Venim. Te scoatem din drum.',
+  sameAs: ['https://maps.app.goo.gl/q3RN5pKrEn8EoF1H6', 'https://maps.app.goo.gl/4gYi3hnEfFh5eGaT8'],
 };
+
+/* manifest imagini responsive (generat de asset-build.cjs) */
+const imgMan = JSON.parse(fs.readFileSync(path.join(__dirname, 'assets/img-manifest.json'), 'utf8'));
+/* <picture> AVIF + WebP + fallback jpg, cu width/height din manifest (CLS 0) */
+function pic(name, alt, sizes, opts = {}) {
+  const m = imgMan[name];
+  if (!m) return `<img src="assets/images/${name}.jpg" alt="${alt}" loading="lazy" decoding="async">`;
+  const set = (ext) => m.widths.map(w => `assets/images/${name}-${w}.${ext} ${w}w`).join(', ');
+  const load = opts.priority ? 'fetchpriority="high" decoding="async"' : 'loading="lazy" decoding="async"';
+  return `<picture>
+            <source type="image/avif" srcset="${set('avif')}" sizes="${sizes}">
+            <source type="image/webp" srcset="${set('webp')}" sizes="${sizes}">
+            <img src="assets/images/${name}.jpg" alt="${alt}" width="${m.w}" height="${m.h}" ${load}>
+          </picture>`;
+}
+
+/* ----------------------------------------------------------------- FAQ (folosit și pentru FAQPage schema) */
+const faqs = [
+  ['Cât costă o tractare?', 'Depinde de distanță și de situație. Îți spunem prețul la telefon înainte să pornim — fără surprize.'],
+  ['Veniți și noaptea sau de sărbători?', 'Da. Asistența rutieră e non-stop, 24/7, inclusiv în weekend și de sărbători.'],
+  ['Cât de repede ajungeți?', 'Avem echipe permanente pe DN1, în zona Comarnic–Sinaia. Suni, îți spunem în câte minute ajungem la tine.'],
+  ['Ridicați mașini din șanț sau după accident?', 'Da. Avem trolii electrice, hidraulice și manuale și autoplatforme moderne pentru orice situație — pană, accident sau defecțiune.'],
+  ['Tractați și camioane sau utilaje?', 'Da. Transportăm utilaje grele și agabaritic cu trailer dedicat, plus dube, remorci, bărci și rulote.'],
+  ['Cum plătesc?', 'Pe loc, cash sau card. Primești bon pentru orice intervenție.'],
+];
 
 /* ----------------------------------------------------------------- ICONIȚE SVG (line, stroke currentColor) */
 const ico = {
@@ -110,7 +139,7 @@ function body() {
 
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-media"><img src="assets/images/hero-tractare.jpg" alt="Autospeciala FLORSIMINTEX tractând un autoturism pe DN1" width="1600" height="1200" fetchpriority="high"></div>
+    <div class="hero-media">${pic('hero-tractare', 'Autospeciala FLORSIMINTEX tractând un autoturism pe DN1', '100vw', { priority: true })}</div>
     <div class="hero-overlay"></div>
     <div class="hero-sweep" aria-hidden="true"></div>
     <div class="wrap hero-inner">
@@ -120,6 +149,7 @@ function body() {
       <div class="hero-actions reveal">
         <a class="btn btn-call" href="tel:${C.telRaw}">${ico.phone}<span>Sună acum · ${C.tel}</span></a>
         <a class="btn btn-wa" href="${waLink()}" target="_blank" rel="noopener">${ico.wa}<span>Scrie pe WhatsApp</span></a>
+        <a class="btn btn-ghost btn-loc" href="${waLink(encodeURIComponent('Bună ziua! Am rămas în pană și am nevoie de tractare.'))}" target="_blank" rel="noopener" data-geo data-wa="${C.wa}">${ico.pin}<span>Sunt blocat aici</span></a>
       </div>
       <ul class="hero-chips reveal">
         <li>${ico.check} Ajungem rapid</li>
@@ -141,6 +171,22 @@ function body() {
     ${stats.map(([n, l]) => `<div class="stat reveal"><b data-count="${n}">${n}</b><span>${l}</span></div>`).join('')}
   </section>
 
+  <!-- CUM FUNCȚIONEAZĂ -->
+  <section class="section section-alt" id="cum">
+    <div class="wrap">
+      <header class="sec-head reveal">
+        <p class="kicker">Cum funcționează</p>
+        <h2>De la telefon, la mașina ta în siguranță</h2>
+        <p class="sub">Fără pași complicați și fără call-center. Suni — de aici ne ocupăm noi.</p>
+      </header>
+      <ol class="steps">
+        <li class="step reveal"><span class="step-no">01</span><div><h3>Suni</h3><p>La ${C.tel} răspunde un om, nu un robot. Ne spui unde ești și ce-ai pățit.</p></div></li>
+        <li class="step reveal"><span class="step-no">02</span><div><h3>Plecăm spre tine</h3><p>Echipa cea mai apropiată de pe DN1 pornește imediat. Îți spunem în câte minute ajungem.</p></div></li>
+        <li class="step reveal"><span class="step-no">03</span><div><h3>Te scoatem din drum</h3><p>Mașina urcă pe platformă, nu e târâtă. Te ducem unde ai nevoie — acasă, la service, în siguranță.</p></div></li>
+      </ol>
+    </div>
+  </section>
+
   <!-- SERVICII -->
   <section class="section" id="servicii">
     <div class="wrap">
@@ -154,7 +200,7 @@ function body() {
         <article class="card reveal${s.img ? ' has-img' : ' no-img'}" style="--i:${i}">
           <span class="card-glow" aria-hidden="true"></span>
           ${s.img
-            ? `<div class="card-media"><img src="assets/images/${s.img}" alt="${s.t} — FLORSIMINTEX ${C.city}" width="1400" height="1050" loading="lazy"></div>`
+            ? `<div class="card-media">${pic(s.img.replace(/\.jpg$/, ''), s.t + ' — FLORSIMINTEX ' + C.city, '(max-width:880px) 100vw, 380px')}</div>`
             : `<div class="card-media card-media--ph" aria-hidden="true"><span class="ph-ico">${ico[s.ico]}</span></div>`}
           <div class="card-body">
             <span class="card-ico">${ico[s.ico]}</span>
@@ -172,7 +218,7 @@ function body() {
   <section class="section section-alt" id="dece">
     <div class="wrap feature">
       <div class="feature-media reveal">
-        <img src="assets/images/asistenta-rutiera.jpg" alt="Platformă de asistență rutieră non-stop FLORSIMINTEX" width="1000" height="1333" loading="lazy">
+        ${pic('asistenta-rutiera', 'Platformă de asistență rutieră non-stop FLORSIMINTEX', '(max-width:880px) 90vw, 460px')}
         <div class="feature-badge">${ico.clock}<div><b>NON-STOP</b><span>și de sărbători</span></div></div>
       </div>
       <div class="feature-text">
@@ -182,6 +228,48 @@ function body() {
           ${whyUs.map(([k, t, d]) => `<li class="reveal"><span class="why-ico">${ico[k]}</span><div><b>${t}</b><p>${d}</p></div></li>`).join('')}
         </ul>
         <a class="btn btn-call reveal" href="tel:${C.telRaw}">${ico.phone}<span>${C.tel}</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESPRE NOI -->
+  <section class="section" id="despre">
+    <div class="wrap feature feature-rev">
+      <div class="feature-text">
+        <p class="kicker reveal">Cine suntem</p>
+        <h2 class="reveal">De ani buni, pe DN1</h2>
+        <p class="about-p reveal">Suntem din ${C.city}, de pe DN1, de unde pleacă toate intervențiile noastre. Dacă ai trecut prin Valea Prahovei, probabil ne-ai văzut autospeciala roșie cu dungi galbene — „ASISTENȚĂ RUTIERĂ NON-STOP". Aia suntem noi.</p>
+        <p class="about-p reveal">O echipă de oameni care răspund la telefon și la 3 noaptea, ridică mașini din șanț și schimbă cauciucuri pe ploaie. Pentru utilaje grele și transport agabaritic lucrăm împreună cu firma soră, FLORSIMINTEX CONSTRUCT.</p>
+        <a class="btn btn-call reveal" href="tel:${C.telRaw}">${ico.phone}<span>${C.tel}</span></a>
+      </div>
+      <div class="feature-media reveal">
+        ${pic('tractare-platforma', 'Autoplatforma FLORSIMINTEX pe DN1, Valea Prahovei', '(max-width:880px) 90vw, 460px')}
+        <div class="feature-badge">${ico.pin}<div><b>${C.city}</b><span>pe DN1</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERIE -->
+  <section class="section section-alt" id="galerie">
+    <div class="wrap">
+      <header class="sec-head reveal">
+        <p class="kicker">De pe teren</p>
+        <h2>Flota și intervențiile noastre</h2>
+        <p class="sub">Poze reale, nu stock. Asta ridicăm, asta conducem, asta închiriem.</p>
+      </header>
+      <div class="gallery">
+        ${[
+          ['tractare-platforma', 'Autospeciala care vine la tine, pe DN1.'],
+          ['transport-utilaje', 'Scania + JCB pe trailer — transport agabaritic.'],
+          ['inchiriere-utilaje', 'Excavator CAT, închiriat cu deservent.'],
+          ['vulcanizare-interior', 'Atelierul de vulcanizare din ' + C.city + '.'],
+          ['inchiriere-atv', 'ATV-uri pentru ture pe munte.'],
+          ['asistenta-rutiera', 'Asistență rutieră non-stop, în orice condiții.'],
+        ].map(([n, cap]) => `
+        <figure class="shot reveal">
+          ${pic(n, cap, '(max-width:600px) 100vw, (max-width:1000px) 50vw, 380px')}
+          <figcaption>${cap}</figcaption>
+        </figure>`).join('')}
       </div>
     </div>
   </section>
@@ -197,8 +285,10 @@ function body() {
       <div class="areas reveal">
         ${C.areas.map(a => `<span class="area-pill">${ico.pin}${a}</span>`).join('')}
       </div>
-      <div class="map-embed reveal">
-        <iframe title="Hartă FLORSIMINTEX — ${C.address}" src="https://www.google.com/maps?q=${encodeURIComponent('VULCANIZARE AUTO COMARNIC, Str. Republicii 1 Bis, Comarnic, Prahova')}&z=15&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class="map-embed map-facade reveal" data-map="https://www.google.com/maps?q=${encodeURIComponent('VULCANIZARE AUTO COMARNIC, Str. Republicii 1 Bis, Comarnic, Prahova')}&amp;z=15&amp;output=embed" role="button" tabindex="0" aria-label="Apasă pentru a încărca harta interactivă Google Maps">
+        <span class="map-facade-grid" aria-hidden="true"></span>
+        <span class="map-facade-pin">${ico.pin}</span>
+        <span class="map-facade-txt"><b>Vezi-ne pe hartă</b><span>${C.address} · apasă pentru harta interactivă</span></span>
       </div>
       <div class="map-cta reveal">
         <div>
@@ -231,6 +321,24 @@ function body() {
     </div>
   </section>
 
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="wrap">
+      <header class="sec-head reveal">
+        <p class="kicker">Întrebări frecvente</p>
+        <h2>Ce ne întreabă lumea cel mai des</h2>
+        <p class="sub">Răspunsuri scurte și oneste. Restul ți le spunem la telefon.</p>
+      </header>
+      <div class="faq">
+        ${faqs.map(([q, a]) => `
+        <details class="faq-item reveal">
+          <summary>${q}<span class="faq-ico" aria-hidden="true"></span></summary>
+          <div class="faq-a"><p>${a}</p></div>
+        </details>`).join('')}
+      </div>
+    </div>
+  </section>
+
   <!-- CONTACT / CTA -->
   <section class="section contact" id="contact">
     <div class="wrap contact-inner">
@@ -241,6 +349,7 @@ function body() {
         <div class="contact-actions reveal">
           <a class="btn btn-call" href="tel:${C.telRaw}">${ico.phone}<span>${C.tel}</span></a>
           <a class="btn btn-wa" href="${waLink()}" target="_blank" rel="noopener">${ico.wa}<span>WhatsApp</span></a>
+          <a class="btn btn-ghost btn-loc" href="${waLink(encodeURIComponent('Bună ziua! Am rămas în pană și am nevoie de tractare.'))}" target="_blank" rel="noopener" data-geo data-wa="${C.wa}">${ico.pin}<span>Sunt blocat aici</span></a>
         </div>
         <ul class="contact-list reveal">
           <li>${ico.pin}<span>${C.address}, ${C.county}</span></li>
@@ -265,7 +374,7 @@ function body() {
   <div class="wrap foot-inner">
     <div class="foot-brand">
       <span class="brand-mark">${ico.tow}</span>
-      <div><b>${C.brand}</b><span>${C.tagline} · ${C.city}</span></div>
+      <div><b>${C.brand}</b><span>${C.slogan}</span></div>
     </div>
     <nav class="foot-nav" aria-label="Footer">
       <a href="#servicii">Servicii</a><a href="#acoperire">Acoperire</a><a href="#recenzii">Recenzii</a><a href="#contact">Contact</a>
@@ -292,6 +401,32 @@ function body() {
 function page(theme) {
   const title = `${C.brand} ${C.city} — Tractări non-stop, Vulcanizare, Utilaje & Spălătorie`;
   const desc = `Tractări auto și asistență rutieră non-stop pe DN1 și Valea Prahovei. Vulcanizare, transport și închiriere utilaje, spălătorie auto în ${C.city}, Prahova. Sună ${C.tel}.`;
+  const url = `${C.site}/${theme}.html`;
+  const ogImg = `${C.site}/assets/images/hero-tractare.jpg`;
+  const indexable = theme === 'industrial';
+  const heroAvif = imgMan['hero-tractare'].widths.map(w => `assets/images/hero-tractare-${w}.avif ${w}w`).join(', ');
+  const bizId = `${C.site}/#business`;
+  const ld = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': ['AutoRepair', 'EmergencyService'], '@id': bizId,
+        name: C.legal, url: C.site, image: ogImg, telephone: C.telRaw,
+        priceRange: '$$', currenciesAccepted: 'RON', paymentAccepted: 'Cash, Card',
+        address: { '@type': 'PostalAddress', streetAddress: 'Str. Republicii 1 Bis', addressLocality: C.city, addressRegion: 'Prahova', postalCode: '105700', addressCountry: 'RO' },
+        geo: { '@type': 'GeoCoordinates', latitude: C.geo.lat, longitude: C.geo.lng },
+        hasMap: C.maps, sameAs: C.sameAs,
+        contactPoint: [{ '@type': 'ContactPoint', telephone: C.telRaw, contactType: 'asistență rutieră', availableLanguage: 'ro' }, { '@type': 'ContactPoint', telephone: C.fixRaw, contactType: 'birou' }],
+        areaServed: C.areas.map(a => ({ '@type': 'Place', name: a })),
+        openingHoursSpecification: [{ '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], opens: '00:00', closes: '23:59' }],
+        makesOffer: services.map(s => ({ '@type': 'Offer', name: s.t })),
+        aggregateRating: { '@type': 'AggregateRating', ratingValue: '5.0', reviewCount: '3', bestRating: '5' },
+        review: reviews.map(r => ({ '@type': 'Review', author: { '@type': 'Person', name: r.n }, reviewRating: { '@type': 'Rating', ratingValue: r.s, bestRating: 5 }, reviewBody: r.t }))
+      },
+      ...services.map((s, i) => ({ '@type': 'Service', '@id': `${C.site}/#service-${i}`, name: s.t, description: s.d, serviceType: s.t, provider: { '@id': bizId }, areaServed: C.areas })),
+      { '@type': 'FAQPage', '@id': `${C.site}/#faq`, mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }
+    ]
+  };
   return `<!doctype html>
 <html lang="ro" class="theme-${theme}">
 <head>
@@ -299,23 +434,31 @@ function page(theme) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${title}</title>
 <meta name="description" content="${desc}">
-<meta name="theme-color" content="#0d0f12">
-<meta property="og:title" content="${title}">
+<meta name="theme-color" content="#0d0e11">
+<link rel="canonical" href="${url}">
+${indexable ? '' : '<meta name="robots" content="noindex,follow">\n'}<meta property="og:title" content="${title}">
 <meta property="og:description" content="${desc}">
 <meta property="og:type" content="website">
-<meta property="og:image" content="assets/images/hero-tractare.jpg">
-<link rel="preload" as="image" href="assets/images/hero-tractare.jpg" fetchpriority="high">
+<meta property="og:url" content="${url}">
+<meta property="og:locale" content="ro_RO">
+<meta property="og:site_name" content="${C.brand} ${C.city}">
+<meta property="og:image" content="${ogImg}">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="1200">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${title}">
+<meta name="twitter:description" content="${desc}">
+<meta name="twitter:image" content="${ogImg}">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+<link rel="preconnect" href="https://www.google.com">
+<link rel="preload" as="image" type="image/avif" imagesrcset="${heroAvif}" imagesizes="100vw" fetchpriority="high">
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/anton-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/pjs-700-latin.woff2" crossorigin>
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/components.css">
 <link rel="stylesheet" href="css/theme-${theme}.css">
-<script type="application/ld+json">${JSON.stringify({
-    '@context': 'https://schema.org', '@type': 'AutoRepair', name: C.legal,
-    image: 'assets/images/hero-tractare.jpg', telephone: C.telRaw,
-    address: { '@type': 'PostalAddress', streetAddress: 'Str. Republicii 1 Bis', addressLocality: C.city, addressRegion: 'Prahova', addressCountry: 'RO' },
-    areaServed: C.areas, openingHours: 'Mo-Su 00:00-24:00',
-    makesOffer: services.map(s => ({ '@type': 'Offer', name: s.t })),
-    aggregateRating: { '@type': 'AggregateRating', ratingValue: '5.0', reviewCount: '3' }
-  })}</script>
+<script type="application/ld+json">${JSON.stringify(ld)}</script>
 </head>
 <body>
 ${body()}
@@ -372,4 +515,14 @@ function chooser() {
 const out = (f, c) => { fs.writeFileSync(path.join(__dirname, f), c); console.log('✓', f, (c.length / 1024).toFixed(1) + 'kb'); };
 ['industrial', 'clean', 'neon'].forEach(t => out(`${t}.html`, page(t)));
 out('index.html', chooser());
+out('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>${C.site}/industrial.html</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+</urlset>
+`);
+out('robots.txt', `User-agent: *
+Allow: /
+
+Sitemap: ${C.site}/sitemap.xml
+`);
 console.log('Build gata.');

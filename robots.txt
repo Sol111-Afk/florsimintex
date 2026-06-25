@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sol111-afk.github.io/florsimintex/sitemap.xml
