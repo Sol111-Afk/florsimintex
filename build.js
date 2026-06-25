@@ -112,8 +112,8 @@ function body() {
     <div class="hero-media"><img src="assets/images/hero-tractare.jpg" alt="Autospeciala FLORSIMINTEX tractând un autoturism pe DN1" width="1600" height="1200" fetchpriority="high"></div>
     <div class="hero-overlay"></div>
     <div class="wrap hero-inner">
-      <p class="eyebrow reveal"><span class="ping"></span> Asistență rutieră non-stop · DN1 · Valea Prahovei</p>
-      <h1 class="reveal">Mai bine <em>te ajutăm noi,</em><br>decât te scoatem noi.</h1>
+      <p class="eyebrow reveal"><span class="ping"></span> Non-stop pe DN1 · Valea Prahovei</p>
+      <h1 class="reveal">Ai rămas în pană<br>pe drum? <em>Te ajutăm noi.</em></h1>
       <p class="lead reveal">Tractări și asistență rutieră 24/7 în ${C.city} și pe toată Valea Prahovei. Plus vulcanizare, închiriere utilaje și spălătorie self wash — toate la aceeași echipă.</p>
       <div class="hero-actions reveal">
         <a class="btn btn-call" href="tel:${C.telRaw}">${ico.phone}<span>Sună acum · ${C.tel}</span></a>
