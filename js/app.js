@@ -176,7 +176,7 @@
       var wa = el.getAttribute('data-wa');
       var fallback = el.getAttribute('href');
       var done = false;
-      var go = function (href) { if (!done) { done = true; window.open(href, '_blank', 'noopener'); } };
+      var go = function (href) { if (!done) { done = true; window.location.href = href; } };
       el.classList.add('loc-loading');
       navigator.geolocation.getCurrentPosition(function (pos) {
         el.classList.remove('loc-loading');
