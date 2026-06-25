@@ -22,7 +22,7 @@ const C = {
   fixRaw: '+40244360278',
   maps: 'https://maps.app.goo.gl/q3RN5pKrEn8EoF1H6',
   mapsTractari: 'https://maps.app.goo.gl/4gYi3hnEfFh5eGaT8',
-  areas: ['DN1', 'Comarnic', 'Posada', 'Sinaia', 'Breaza', 'Nistorești', 'Câmpina', 'Bănești'],
+  areas: ['DN1', 'Comarnic', 'Posada', 'Secăria', 'Talea', 'Sinaia', 'Breaza', 'Nistorești', 'Câmpina', 'Bănești'],
   waMsg: encodeURIComponent('Bună ziua! Am nevoie de ajutor — '),
 };
 
@@ -64,7 +64,7 @@ const whyUs = [
 
 const stats = [
   ['24/7', 'asistență rutieră non-stop'],
-  ['8', 'localități acoperite pe DN1'],
+  ['9', 'localități acoperite pe DN1'],
   ['12+', 'oameni în echipă'],
   ['100%', 'autoplatforme moderne'],
 ];
