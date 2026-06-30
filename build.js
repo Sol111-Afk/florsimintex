@@ -52,7 +52,6 @@ const faqs = [
   ['Cât de repede ajungeți?', 'Avem echipe permanente pe DN1, în zona Comarnic–Sinaia. Suni, îți spunem în câte minute ajungem la tine.'],
   ['Ridicați mașini din șanț sau după accident?', 'Da. Avem trolii electrice, hidraulice și manuale și autoplatforme moderne pentru orice situație — pană, accident sau defecțiune.'],
   ['Tractați și camioane sau utilaje?', 'Da. Transportăm utilaje grele și agabaritic cu trailer dedicat, plus dube, remorci, bărci și rulote.'],
-  ['Cum plătesc?', 'Pe loc, cash sau card. Primești bon pentru orice intervenție.'],
 ];
 
 /* ----------------------------------------------------------------- ICONIȚE SVG (line, stroke currentColor) */
@@ -87,7 +86,7 @@ const services = [
 const whyUs = [
   ['bolt', 'Ajungem repede', 'Echipe permanente în zonă, pe DN1. Suni, spui unde ești, plecăm spre tine.'],
   ['shield', 'Autoplatforme moderne', 'Mașina ta urcă pe platformă, nu e trasă pe asfalt. Trolii electrice, hidraulice și manuale.'],
-  ['clock', 'Non-stop, chiar și noaptea', 'Asistența rutieră nu se închide. Suntem la telefon 24/7, inclusiv în weekend și de sărbători.'],
+  ['clock', 'Program non-stop, 7/24', 'Asistența rutieră nu se închide. Suntem la telefon 24/7, inclusiv în weekend și de sărbători.'],
   ['check', 'O firmă, toate serviciile', 'De la tractare la vulcanizare, utilaje și spălătorie — rezolvi totul într-un singur loc, cu oameni pe care îi cunoști.'],
 ];
 
@@ -154,7 +153,7 @@ function body() {
       <ul class="hero-chips reveal">
         <li>${ico.check} Ajungem rapid</li>
         <li>${ico.check} Autoplatforme moderne</li>
-        <li>${ico.check} Plata pe loc / card</li>
+        <li>${ico.check} Non-stop, 7/24</li>
       </ul>
     </div>
   </section>
@@ -239,7 +238,7 @@ function body() {
         <p class="kicker reveal">Cine suntem</p>
         <h2 class="reveal">De ani buni, pe DN1</h2>
         <p class="about-p reveal">Suntem din ${C.city}, de pe DN1, de unde pleacă toate intervențiile noastre. Dacă ai trecut prin Valea Prahovei, probabil ne-ai văzut autospeciala roșie cu dungi galbene — „ASISTENȚĂ RUTIERĂ NON-STOP". Aia suntem noi.</p>
-        <p class="about-p reveal">O echipă de oameni care răspund la telefon și la 3 noaptea, ridică mașini din șanț și schimbă cauciucuri pe ploaie. Pentru utilaje grele și transport agabaritic lucrăm împreună cu firma soră, FLORSIMINTEX CONSTRUCT.</p>
+        <p class="about-p reveal">Ridicăm mașini din șanț, schimbăm cauciucuri pe ploaie și tractăm pe platformă. Avem program non-stop, 7/24, pentru asistență rutieră — suni, răspundem și venim. Pentru utilaje grele și transport agabaritic avem trailer dedicat și utilaje proprii.</p>
         <a class="btn btn-call reveal" href="tel:${C.telRaw}">${ico.phone}<span>${C.tel}</span></a>
       </div>
       <div class="feature-media reveal">
@@ -412,7 +411,7 @@ function page(theme) {
       {
         '@type': ['AutoRepair', 'EmergencyService'], '@id': bizId,
         name: C.legal, url: C.site, image: ogImg, telephone: C.telRaw,
-        priceRange: '$$', currenciesAccepted: 'RON', paymentAccepted: 'Cash, Card',
+        priceRange: '$$', currenciesAccepted: 'RON',
         address: { '@type': 'PostalAddress', streetAddress: 'Str. Republicii 1 Bis', addressLocality: C.city, addressRegion: 'Prahova', postalCode: '105700', addressCountry: 'RO' },
         geo: { '@type': 'GeoCoordinates', latitude: C.geo.lat, longitude: C.geo.lng },
         hasMap: C.maps, sameAs: C.sameAs,
