@@ -49,7 +49,6 @@ function pic(name, alt, sizes, opts = {}) {
 /* ----------------------------------------------------------------- FAQ (folosit și pentru FAQPage schema) */
 const faqs = [
   ['Cât costă o tractare?', 'Depinde de distanță și de situație. Îți spunem prețul la telefon înainte să pornim — fără surprize.'],
-  ['Veniți și noaptea sau de sărbători?', 'Da. Asistența rutieră e non-stop, 24/7, inclusiv în weekend și de sărbători.'],
   ['Cât de repede ajungeți?', 'Avem echipe permanente pe DN1, în zona Comarnic–Sinaia. Suni, îți spunem în câte minute ajungem la tine.'],
   ['Ridicați mașini din șanț sau după accident?', 'Da. Avem trolii electrice, hidraulice și manuale și autoplatforme moderne pentru orice situație — pană, accident sau defecțiune.'],
   ['Tractați și camioane sau utilaje?', 'Da. Transportăm utilaje grele și agabaritic cu trailer dedicat, plus dube, remorci, bărci și rulote.'],
