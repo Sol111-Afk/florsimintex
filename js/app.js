@@ -199,6 +199,28 @@
     tio.observe(document.querySelector('.ticker'));
   }
 
+  /* banner cookie / GDPR — arătat o singură dată, alegerea reținută în localStorage */
+  var banner = document.getElementById('cookie-banner');
+  if (banner) {
+    var KEY = 'flx-consent';
+    var saved = null;
+    try { saved = localStorage.getItem(KEY); } catch (e) {}
+    window.flxConsent = saved; /* 'all' | 'necessary' | null — util dacă adăugăm analytics gândit pe consimțământ */
+    if (!saved) {
+      banner.hidden = false;
+      requestAnimationFrame(function () { banner.classList.add('show'); });
+    }
+    [].slice.call(banner.querySelectorAll('[data-consent]')).forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var v = btn.getAttribute('data-consent');
+        try { localStorage.setItem(KEY, v); } catch (e) {}
+        window.flxConsent = v;
+        banner.classList.remove('show');
+        setTimeout(function () { banner.hidden = true; }, 300);
+      });
+    });
+  }
+
   /* service worker — offline + load instant repetat */
   if ('serviceWorker' in navigator) {
     addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });

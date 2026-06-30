@@ -310,3 +310,59 @@
 
 /* perf: sari rendering-ul secțiunilor lungi de jos până aproape de viewport */
 #galerie,#faq{content-visibility:auto;contain-intrinsic-size:auto 760px}
+
+/* ============================================================
+   FOOTER LEGAL · BANNER COOKIE · PAGINI LEGALE
+   ============================================================ */
+
+/* linkuri legale în footer */
+.foot-links{display:flex;flex-wrap:wrap;gap:.4rem 1.2rem;margin-top:1rem;width:100%}
+.foot-links a{color:var(--muted);font-size:.86rem;text-decoration:none;border-bottom:1px solid transparent;transition:.2s}
+.foot-links a:hover{color:var(--text);border-bottom-color:var(--accent)}
+
+/* banner cookie — jos, discret, peste callbar pe mobil */
+.cookie-banner{position:fixed;left:0;right:0;bottom:0;z-index:80;
+  background:color-mix(in srgb,var(--surface) 96%,#000);border-top:1px solid var(--line);
+  box-shadow:0 -10px 40px rgba(0,0,0,.45);
+  transform:translateY(110%);transition:transform .35s var(--ease);
+  padding:max(14px,env(safe-area-inset-bottom)) 16px 14px}
+.cookie-banner.show{transform:translateY(0)}
+.cookie-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.cookie-txt{flex:1 1 380px;margin:0;color:var(--muted);font-size:.9rem;line-height:1.5}
+.cookie-txt strong{color:var(--text)}
+.cookie-txt a{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+.cookie-btns{display:flex;gap:10px;flex:none}
+.cookie-btns .btn{padding:.6em 1.2em;font-size:.9rem}
+@media (max-width:760px){
+  .cookie-banner{bottom:64px}            /* deasupra barei „Sun.A cum" de pe mobil */
+  .cookie-btns{flex:1 1 100%}
+  .cookie-btns .btn{flex:1}
+}
+@media (prefers-reduced-motion:reduce){.cookie-banner{transition:none}}
+
+/* pagini legale — proză lizibilă pe fundal închis */
+.legal-page{padding-bottom:0}
+.legal-wrap{padding:clamp(90px,12vh,130px) 0 70px}
+.legal-back a{display:inline-flex;align-items:center;gap:.45rem;color:var(--muted);text-decoration:none;font-weight:600;font-size:.92rem}
+.legal-back a:hover{color:var(--text)}
+.legal-back svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.4;transform:scaleX(-1)}
+.legal-wrap h1{font-family:var(--font-display);font-size:clamp(2.1rem,6vw,3.4rem);line-height:1;letter-spacing:.012em;margin:1.2rem 0 .6rem}
+.legal-lead{color:var(--text);font-size:1.1rem;max-width:62ch;margin:0 0 .4rem}
+.legal-updated{color:var(--muted);font-size:.85rem;margin:0 0 2.4rem}
+.legal-body{max-width:74ch}
+.legal-body h2{font-size:1.25rem;margin:2.2rem 0 .7rem;letter-spacing:.01em}
+.legal-body p,.legal-body li{color:var(--muted);line-height:1.7}
+.legal-body p{margin:0 0 1rem}
+.legal-body ul{margin:0 0 1.2rem;padding-left:1.2rem;display:grid;gap:.5rem}
+.legal-body a{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+.legal-body strong{color:var(--text)}
+.legal-body code{background:var(--surface2);border:1px solid var(--line);border-radius:5px;padding:.08em .4em;font-size:.88em}
+.legal-table{width:100%;border-collapse:collapse;margin:0 0 1.4rem;font-size:.92rem}
+.legal-table th,.legal-table td{text-align:left;padding:.7em .8em;border:1px solid var(--line);vertical-align:top}
+.legal-table th{background:var(--surface2);color:var(--text);font-weight:700}
+.legal-table td{color:var(--muted)}
+@media (max-width:600px){.legal-table,.legal-table tbody,.legal-table tr,.legal-table td,.legal-table th{display:block}
+  .legal-table thead{display:none}
+  .legal-table tr{margin-bottom:.8rem;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .legal-table td{border:0;border-bottom:1px solid var(--line)}
+  .legal-table td:last-child{border-bottom:0}}

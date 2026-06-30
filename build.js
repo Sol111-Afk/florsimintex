@@ -28,6 +28,7 @@ const C = {
   geo: { lat: 45.2486, lng: 25.6361 },
   slogan: 'Suni. Venim. Te scoatem din drum.',
   sameAs: ['https://maps.app.goo.gl/q3RN5pKrEn8EoF1H6', 'https://maps.app.goo.gl/4gYi3hnEfFh5eGaT8'],
+  legalDate: '30 iunie 2026',
 };
 
 /* manifest imagini responsive (generat de asset-build.cjs) */
@@ -368,7 +369,14 @@ function body() {
     </div>
   </section>
 </main>
+${siteFooter('home')}
+`;
+}
 
+/* ----------------------------------------------------------------- FOOTER + DOCK + BARĂ + COOKIE (comun) */
+function siteFooter(ctx) {
+  const home = ctx === 'home' ? '' : 'industrial.html';
+  return `
 <footer class="site-foot">
   <div class="wrap foot-inner">
     <div class="foot-brand">
@@ -376,9 +384,14 @@ function body() {
       <div><b>${C.brand}</b><span>${C.slogan}</span></div>
     </div>
     <nav class="foot-nav" aria-label="Footer">
-      <a href="#servicii">Servicii</a><a href="#acoperire">Acoperire</a><a href="#recenzii">Recenzii</a><a href="#contact">Contact</a>
+      <a href="${home}#servicii">Servicii</a><a href="${home}#acoperire">Acoperire</a><a href="${home}#recenzii">Recenzii</a><a href="${home}#contact">Contact</a>
     </nav>
     <p class="foot-legal">© <span id="y"></span> ${C.legal} · CUI ${C.cui} · ${C.address}, ${C.county}<br>Tractări · Vulcanizare · Închiriere utilaje · Spălătorie self wash — non-stop pe DN1.</p>
+    <nav class="foot-links" aria-label="Informații legale">
+      <a href="confidentialitate.html">Politică de confidențialitate</a>
+      <a href="cookies.html">Politică de cookie-uri</a>
+      <a href="termeni.html">Termeni și condiții</a>
+    </nav>
   </div>
 </footer>
 
@@ -393,7 +406,172 @@ function body() {
   <a class="callbar-call" href="tel:${C.telRaw}">${ico.phone}<span>Sună acum · ${C.tel}</span></a>
   <a class="callbar-wa" href="${waLink()}" target="_blank" rel="noopener" aria-label="Scrie pe WhatsApp">${ico.wa}</a>
 </div>
+
+<!-- BANNER COOKIE / GDPR -->
+<div class="cookie-banner" id="cookie-banner" role="dialog" aria-live="polite" aria-label="Notificare cookie-uri" hidden>
+  <div class="cookie-inner">
+    <p class="cookie-txt">Folosim doar stocare strict necesară pentru ca site-ul să funcționeze (nu te urmărim, fără analytics sau reclame). <strong>Harta Google și WhatsApp se încarcă doar când le apeși tu.</strong> Detalii în <a href="cookies.html">Politica de cookie-uri</a>.</p>
+    <div class="cookie-btns">
+      <button type="button" class="btn btn-ghost cookie-no" data-consent="necessary">Doar necesare</button>
+      <button type="button" class="btn btn-call cookie-ok" data-consent="all">Am înțeles</button>
+    </div>
+  </div>
+</div>
 `;
+}
+
+/* ----------------------------------------------------------------- DOCUMENTE LEGALE (GDPR / RO) */
+const anspdcp = 'Autoritatea Națională de Supraveghere a Prelucrării Datelor cu Caracter Personal (ANSPDCP), B-dul G-ral Gheorghe Magheru 28-30, Sector 1, București · anspdcp.ro';
+
+const legalDocs = {
+  confidentialitate: {
+    title: 'Politică de confidențialitate',
+    lead: 'Cum prelucrăm datele tale când ne contactezi. Pe scurt: doar atât cât e nevoie ca să te ajutăm, nu vindem și nu dăm datele nimănui.',
+    html: `
+      <h2>1. Cine suntem (operatorul)</h2>
+      <p><strong>${C.legal}</strong>, cu sediul în ${C.address}, ${C.county}, înregistrată cu CUI ${C.cui}. Ne poți contacta la telefon <a href="tel:${C.telRaw}">${C.tel}</a> sau pe WhatsApp la același număr.</p>
+
+      <h2>2. Ce date prelucrăm</h2>
+      <p>Acest site este un site de <strong>prezentare</strong>. Nu are formulare care trimit date către un server, nu creează conturi și nu stochează date despre tine pe site. Prelucrăm date personale <strong>doar atunci când ne contactezi tu</strong>:</p>
+      <ul>
+        <li><strong>Când suni</strong> sau ne scrii pe WhatsApp: numărul tău de telefon și informațiile pe care ni le spui (nume, ce ți s-a întâmplat, locul unde ești).</li>
+        <li><strong>Butonul „Sunt blocat aici"</strong>: dacă îl apeși, browserul îți cere acordul să citească locația GPS. Coordonatele sunt folosite <strong>o singură dată</strong>, ca să fie puse automat în mesajul de WhatsApp pe care îl trimiți tu către noi. Nu citim și nu stocăm locația ta pe site, iar fără acordul tău în browser nu se întâmplă nimic.</li>
+      </ul>
+
+      <h2>3. De ce le prelucrăm (scop și temei legal)</h2>
+      <ul>
+        <li>Ca să răspundem solicitării tale și să venim cu intervenția (tractare, vulcanizare, utilaje etc.) — temei: demersuri precontractuale și executarea serviciului la cererea ta, art. 6(1)(b) GDPR.</li>
+        <li>Locația GPS — temei: <strong>consimțământul</strong> tău, art. 6(1)(a), pe care îl dai prin browser și pe care îl poți retrage oricând.</li>
+      </ul>
+
+      <h2>4. Servicii terțe</h2>
+      <ul>
+        <li><strong>WhatsApp</strong> (Meta Platforms Ireland Ltd.) — când ne scrii pe WhatsApp, conversația e prelucrată de Meta conform politicii lor.</li>
+        <li><strong>Google Maps</strong> — harta se încarcă <strong>doar dacă apeși tu</strong> pe ea; atunci Google poate prelucra date (inclusiv IP-ul). Vezi <a href="cookies.html">Politica de cookie-uri</a>.</li>
+        <li><strong>Găzduire</strong> — paginile sunt servite static; furnizorul de găzduire poate procesa adrese IP în jurnalele tehnice, pentru securitate și funcționare.</li>
+      </ul>
+
+      <h2>5. Cât păstrăm datele</h2>
+      <p>Păstrăm informațiile primite prin telefon/WhatsApp doar cât e nevoie ca să-ți oferim serviciul și, ulterior, conform obligațiilor legale (de ex. contabile, dacă emitem un document fiscal). Restul le ștergem.</p>
+
+      <h2>6. Drepturile tale</h2>
+      <p>Conform GDPR ai dreptul de: acces la date, rectificare, ștergere, restricționarea prelucrării, opoziție, portabilitate și retragerea consimțământului în orice moment. Pentru oricare dintre ele, sună-ne sau scrie-ne pe WhatsApp la <a href="tel:${C.telRaw}">${C.tel}</a>.</p>
+      <p>Dacă ești nemulțumit de modul în care îți prelucrăm datele, te poți adresa ${anspdcp}.</p>
+
+      <h2>7. Minori</h2>
+      <p>Site-ul și serviciile noastre se adresează adulților. Nu colectăm intenționat date de la minori.</p>
+
+      <h2>8. Modificări</h2>
+      <p>Putem actualiza această politică. Versiunea curentă este cea publicată aici.</p>`
+  },
+
+  cookies: {
+    title: 'Politică de cookie-uri',
+    lead: 'Pe scurt: nu te urmărim. Nu folosim cookie-uri de publicitate sau analytics. Folosim doar stocarea strict necesară ca site-ul să meargă.',
+    html: `
+      <h2>1. Ce sunt cookie-urile</h2>
+      <p>Cookie-urile și tehnologiile similare (localStorage, cache) sunt fișiere mici pe care un site le poate salva în browserul tău, pentru a funcționa sau a-și aminti preferințe.</p>
+
+      <h2>2. Ce folosim noi</h2>
+      <p>Site-ul <strong>${C.brand}</strong> nu folosește cookie-uri de marketing, publicitate sau analiză a traficului. Nu te urmărim și nu construim profiluri.</p>
+      <table class="legal-table">
+        <thead><tr><th>Stocare</th><th>Tip</th><th>Rol</th></tr></thead>
+        <tbody>
+          <tr><td><code>flx-consent</code> (localStorage)</td><td>Strict necesar</td><td>Reține că ai văzut și ai răspuns la notificarea de cookie-uri, ca să nu ți-o mai arătăm.</td></tr>
+          <tr><td>Service Worker (cache)</td><td>Funcțional</td><td>Salvează paginile ca site-ul să se încarce rapid și să meargă chiar și fără semnal bun pe Vale.</td></tr>
+          <tr><td>Google Maps</td><td>Terț — doar la click</td><td>Dacă apeși pe hartă, Google încarcă harta interactivă și poate seta propriile cookie-uri.</td></tr>
+          <tr><td>WhatsApp / wa.me</td><td>Terț — doar la click</td><td>Dacă apeși pe butoanele WhatsApp, ești redirecționat către serviciul WhatsApp.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>3. Cum le controlezi</h2>
+      <p>Poți șterge sau bloca oricând stocarea din setările browserului tău. Dacă blochezi stocarea strict necesară, este posibil ca site-ul să nu funcționeze optim (de ex. îți va arăta din nou notificarea de cookie-uri). Harta Google și WhatsApp nu se încarcă deloc dacă nu apeși tu pe ele.</p>
+
+      <h2>4. Mai multe detalii</h2>
+      <p>Despre datele personale, vezi <a href="confidentialitate.html">Politica de confidențialitate</a>.</p>`
+  },
+
+  termeni: {
+    title: 'Termeni și condiții',
+    lead: 'Reguli simple de folosire a acestui site de prezentare.',
+    html: `
+      <h2>1. Despre site</h2>
+      <p>Acest site este pus la dispoziție de <strong>${C.legal}</strong> (CUI ${C.cui}, ${C.address}, ${C.county}) și are rol de <strong>prezentare</strong> a serviciilor noastre: tractări și asistență rutieră, vulcanizare, transport și închiriere utilaje, spălătorie self wash. Pe site nu se fac vânzări sau plăți online.</p>
+
+      <h2>2. Informații orientative</h2>
+      <p>Informațiile despre servicii, programe și acoperire au caracter general și orientativ. Prețul, disponibilitatea și detaliile unei intervenții se confirmă <strong>telefonic</strong>, înainte de a porni. Ne străduim să ținem informațiile corecte și actuale, dar pot apărea erori sau modificări.</p>
+
+      <h2>3. Contact și solicitări</h2>
+      <p>Ne contactezi la telefon <a href="tel:${C.telRaw}">${C.tel}</a> (și WhatsApp) sau la fix ${C.fix}. Asistența rutieră funcționează non-stop; pentru celelalte servicii, vezi programul de pe pagina principală.</p>
+
+      <h2>4. Proprietate intelectuală</h2>
+      <p>Textele, fotografiile și elementele grafice de pe site sunt proprietatea ${C.legal} și nu pot fi preluate sau folosite fără acordul nostru.</p>
+
+      <h2>5. Linkuri externe</h2>
+      <p>Site-ul conține linkuri către servicii terțe (Google Maps, WhatsApp). Nu răspundem pentru conținutul sau politicile acestor servicii.</p>
+
+      <h2>6. Limitarea răspunderii</h2>
+      <p>Nu răspundem pentru eventuale daune rezultate din folosirea informațiilor cu caracter orientativ de pe site. Condițiile concrete ale fiecărei intervenții se stabilesc direct cu noi.</p>
+
+      <h2>7. Legea aplicabilă</h2>
+      <p>Acești termeni sunt guvernați de legislația din România. Eventualele litigii se soluționează pe cale amiabilă sau de instanțele competente din România.</p>`
+  },
+};
+
+/* ----------------------------------------------------------------- ȘABLON PAGINĂ LEGALĂ */
+function legalPage(slug) {
+  const d = legalDocs[slug];
+  const title = `${d.title} — ${C.brand} ${C.city}`;
+  const url = `${C.site}/${slug}.html`;
+  return `<!doctype html>
+<html lang="ro" class="theme-industrial">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${title}</title>
+<meta name="description" content="${d.lead}">
+<meta name="theme-color" content="#0d0e11">
+<link rel="canonical" href="${url}">
+<meta property="og:title" content="${title}">
+<meta property="og:description" content="${d.lead}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="${url}">
+<meta property="og:locale" content="ro_RO">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/anton-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/pjs-700-latin.woff2" crossorigin>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/theme-industrial.css">
+</head>
+<body class="legal-page">
+<a class="skip" href="#main">Sari la conținut</a>
+<header class="site-head" id="top">
+  <div class="wrap head-inner">
+    <a class="brand" href="industrial.html" aria-label="${C.brand} — acasă">
+      <span class="brand-mark">${ico.tow}</span>
+      <span class="brand-txt"><b>${C.brand}</b><i>${C.city} · DN1</i></span>
+    </a>
+    <div class="head-cta">
+      <a class="btn btn-ghost" href="tel:${C.telRaw}">${ico.phone}<span>${C.tel}</span></a>
+    </div>
+  </div>
+  <div class="chevron-bar" aria-hidden="true"><span class="chevron-bar__fill"></span></div>
+</header>
+<main id="main" class="legal-wrap">
+  <div class="wrap">
+    <p class="legal-back"><a href="industrial.html">${ico.arrow}<span>Înapoi la pagina principală</span></a></p>
+    <h1>${d.title}</h1>
+    <p class="legal-lead">${d.lead}</p>
+    <p class="legal-updated">Ultima actualizare: ${C.legalDate}</p>
+    <div class="legal-body">${d.html}</div>
+  </div>
+</main>
+${siteFooter('legal')}
+<script src="js/app.js" defer></script>
+</body>
+</html>`;
 }
 
 /* ----------------------------------------------------------------- ȘABLON PAGINĂ */
@@ -514,9 +692,13 @@ function chooser() {
 const out = (f, c) => { fs.writeFileSync(path.join(__dirname, f), c); console.log('✓', f, (c.length / 1024).toFixed(1) + 'kb'); };
 ['industrial', 'clean', 'neon'].forEach(t => out(`${t}.html`, page(t)));
 out('index.html', chooser());
+Object.keys(legalDocs).forEach(slug => out(`${slug}.html`, legalPage(slug)));
 out('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>${C.site}/industrial.html</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+  <url><loc>${C.site}/confidentialitate.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>${C.site}/cookies.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>${C.site}/termeni.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 </urlset>
 `);
 out('robots.txt', `User-agent: *

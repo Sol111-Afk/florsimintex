@@ -1,6 +1,6 @@
 /* FLORSIMINTEX · service worker — funcționează offline (util în zone fără semnal).
    Precache esențialul; restul cache-first cu reîmprospătare în fundal. */
-const CACHE = 'flx-v2';
+const CACHE = 'flx-v3';
 const CORE = [
   'industrial.html',
   'css/base.css',
