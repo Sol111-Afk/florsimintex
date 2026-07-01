@@ -1,6 +1,6 @@
 /* FLORSIMINTEX — generator pagini statice.
    O singură sursă de conținut + markup, 3 teme vizuale (industrial / clean / neon).
-   Rulează:  node build.js   →  scrie index.html + industrial.html + clean.html + neon.html
+   Rulează:  node build.js   →  index.html (homepage industrial) + industrial/clean/neon.html + variante.html + pagini legale + sitemap/robots/CNAME
    CSS/JS sunt fișiere separate, editabile manual (css/, js/). */
 
 const fs = require('fs');
@@ -24,7 +24,8 @@ const C = {
   mapsTractari: 'https://maps.app.goo.gl/4gYi3hnEfFh5eGaT8',
   areas: ['DN1', 'Comarnic', 'Posada', 'Secăria', 'Talea', 'Sinaia', 'Breaza', 'Nistorești', 'Câmpina', 'Bănești'],
   waMsg: encodeURIComponent('Bună ziua! Am nevoie de ajutor — '),
-  site: 'https://sol111-afk.github.io/florsimintex',
+  site: 'https://tractari-auto-comarnic.ro',
+  email: 'contact@tractari-auto-comarnic.ro',
   geo: { lat: 45.2486, lng: 25.6361 },
   slogan: 'Suni. Venim. Te scoatem din drum.',
   sameAs: ['https://maps.app.goo.gl/q3RN5pKrEn8EoF1H6', 'https://maps.app.goo.gl/4gYi3hnEfFh5eGaT8'],
@@ -374,7 +375,7 @@ ${siteFooter('home')}
 
 /* ----------------------------------------------------------------- FOOTER + DOCK + BARĂ + COOKIE (comun) */
 function siteFooter(ctx) {
-  const home = ctx === 'home' ? '' : 'industrial.html';
+  const home = ctx === 'home' ? '' : 'index.html';
   return `
 <footer class="site-foot">
   <div class="wrap foot-inner">
@@ -385,7 +386,7 @@ function siteFooter(ctx) {
     <nav class="foot-nav" aria-label="Footer">
       <a href="${home}#servicii">Servicii</a><a href="${home}#acoperire">Acoperire</a><a href="${home}#recenzii">Recenzii</a><a href="${home}#contact">Contact</a>
     </nav>
-    <p class="foot-legal">© <span id="y"></span> ${C.legal} · CUI ${C.cui} · ${C.address}, ${C.county}<br>Tractări · Vulcanizare · Închiriere utilaje · Spălătorie self wash — non-stop pe DN1.</p>
+    <p class="foot-legal">© <span id="y"></span> ${C.legal} · CUI ${C.cui} · ${C.address}, ${C.county}<br>Tel <a href="tel:${C.telRaw}">${C.tel}</a> · <a href="mailto:${C.email}">${C.email}</a><br>Tractări · Vulcanizare · Închiriere utilaje · Spălătorie self wash — non-stop pe DN1.</p>
     <nav class="foot-links" aria-label="Informații legale">
       <a href="confidentialitate.html">Politică de confidențialitate</a>
       <a href="cookies.html">Politică de cookie-uri</a>
@@ -436,7 +437,7 @@ const legalDocs = {
     lead: 'Cum prelucrăm datele tale când ne contactezi. Pe scurt: doar atât cât e nevoie ca să te ajutăm, nu vindem și nu dăm datele nimănui.',
     html: `
       <h2>1. Cine suntem (operatorul)</h2>
-      <p><strong>${C.legal}</strong>, cu sediul în ${C.address}, ${C.county}, înregistrată cu CUI ${C.cui}. Ne poți contacta la telefon <a href="tel:${C.telRaw}">${C.tel}</a> sau pe WhatsApp la același număr.</p>
+      <p><strong>${C.legal}</strong>, cu sediul în ${C.address}, ${C.county}, înregistrată cu CUI ${C.cui}. Ne poți contacta la telefon <a href="tel:${C.telRaw}">${C.tel}</a> sau pe WhatsApp la același număr, ori pe email la <a href="mailto:${C.email}">${C.email}</a>.</p>
 
       <h2>2. Ce date prelucrăm</h2>
       <p>Acest site este un site de <strong>prezentare</strong>. Nu are formulare care trimit date către un server, nu creează conturi și nu stochează date despre tine pe site. Prelucrăm date personale <strong>doar atunci când ne contactezi tu</strong>:</p>
@@ -462,7 +463,7 @@ const legalDocs = {
       <p>Păstrăm informațiile primite prin telefon/WhatsApp doar cât e nevoie ca să-ți oferim serviciul și, ulterior, conform obligațiilor legale (de ex. contabile, dacă emitem un document fiscal). Restul le ștergem.</p>
 
       <h2>6. Drepturile tale</h2>
-      <p>Conform GDPR ai dreptul de: acces la date, rectificare, ștergere, restricționarea prelucrării, opoziție, portabilitate și retragerea consimțământului în orice moment. Pentru oricare dintre ele, sună-ne sau scrie-ne pe WhatsApp la <a href="tel:${C.telRaw}">${C.tel}</a>.</p>
+      <p>Conform GDPR ai dreptul de: acces la date, rectificare, ștergere, restricționarea prelucrării, opoziție, portabilitate și retragerea consimțământului în orice moment. Pentru oricare dintre ele, sună-ne, scrie-ne pe WhatsApp la <a href="tel:${C.telRaw}">${C.tel}</a> sau trimite-ne un email la <a href="mailto:${C.email}">${C.email}</a>.</p>
       <p>Dacă ești nemulțumit de modul în care îți prelucrăm datele, te poți adresa ${anspdcp}.</p>
 
       <h2>7. Minori</h2>
@@ -509,7 +510,7 @@ const legalDocs = {
       <p>Informațiile despre servicii, programe și acoperire au caracter general și orientativ. Prețul, disponibilitatea și detaliile unei intervenții se confirmă <strong>telefonic</strong>, înainte de a porni. Ne străduim să ținem informațiile corecte și actuale, dar pot apărea erori sau modificări.</p>
 
       <h2>3. Contact și solicitări</h2>
-      <p>Ne contactezi la telefon <a href="tel:${C.telRaw}">${C.tel}</a> (și WhatsApp) sau la fix ${C.fix}. Asistența rutieră funcționează non-stop; pentru celelalte servicii, vezi programul de pe pagina principală.</p>
+      <p>Ne contactezi la telefon <a href="tel:${C.telRaw}">${C.tel}</a> (și WhatsApp), pe email la <a href="mailto:${C.email}">${C.email}</a> sau la fix ${C.fix}. Asistența rutieră funcționează non-stop; pentru celelalte servicii, vezi programul de pe pagina principală.</p>
 
       <h2>4. Proprietate intelectuală</h2>
       <p>Textele, fotografiile și elementele grafice de pe site sunt proprietatea ${C.legal} și nu pot fi preluate sau folosite fără acordul nostru.</p>
@@ -559,7 +560,7 @@ function legalPage(slug) {
 <a class="skip" href="#main">Sari la conținut</a>
 <header class="site-head" id="top">
   <div class="wrap head-inner">
-    <a class="brand" href="industrial.html" aria-label="${C.brand} — acasă">
+    <a class="brand" href="index.html" aria-label="${C.brand} — acasă">
       <span class="brand-mark">${ico.tow}</span>
       <span class="brand-txt"><b>${C.brand}</b><i>${C.city} · DN1</i></span>
     </a>
@@ -571,7 +572,7 @@ function legalPage(slug) {
 </header>
 <main id="main" class="legal-wrap">
   <div class="wrap">
-    <p class="legal-back"><a href="industrial.html">${ico.arrow}<span>Înapoi la pagina principală</span></a></p>
+    <p class="legal-back"><a href="index.html">${ico.arrow}<span>Înapoi la pagina principală</span></a></p>
     <h1>${d.title}</h1>
     <p class="legal-lead">${d.lead}</p>
     <p class="legal-updated">Ultima actualizare: ${C.legalDate}</p>
@@ -585,12 +586,12 @@ ${siteFooter('legal')}
 }
 
 /* ----------------------------------------------------------------- ȘABLON PAGINĂ */
-function page(theme) {
+function page(theme, opts = {}) {
   const title = `${C.brand} ${C.city} — Tractări non-stop, Vulcanizare, Utilaje & Spălătorie`;
   const desc = `Tractări auto și asistență rutieră non-stop pe DN1 și Valea Prahovei. Vulcanizare, transport și închiriere utilaje, spălătorie auto în ${C.city}, Prahova. Sună ${C.tel}.`;
-  const url = `${C.site}/${theme}.html`;
+  const url = opts.home ? `${C.site}/` : `${C.site}/${theme}.html`;
   const ogImg = `${C.site}/assets/images/hero-tractare.jpg`;
-  const indexable = theme === 'industrial';
+  const indexable = opts.home === true;
   const heroAvif = imgMan['hero-tractare'].widths.map(w => `assets/images/hero-tractare-${w}.avif ${w}w`).join(', ');
   const bizId = `${C.site}/#business`;
   const ld = {
@@ -598,12 +599,12 @@ function page(theme) {
     '@graph': [
       {
         '@type': ['AutoRepair', 'EmergencyService'], '@id': bizId,
-        name: C.legal, url: C.site, image: ogImg, telephone: C.telRaw,
+        name: C.legal, url: C.site, image: ogImg, telephone: C.telRaw, email: C.email,
         priceRange: '$$', currenciesAccepted: 'RON',
         address: { '@type': 'PostalAddress', streetAddress: 'Str. Republicii 1 Bis', addressLocality: C.city, addressRegion: 'Prahova', postalCode: '105700', addressCountry: 'RO' },
         geo: { '@type': 'GeoCoordinates', latitude: C.geo.lat, longitude: C.geo.lng },
         hasMap: C.maps, sameAs: C.sameAs,
-        contactPoint: [{ '@type': 'ContactPoint', telephone: C.telRaw, contactType: 'asistență rutieră', availableLanguage: 'ro' }, { '@type': 'ContactPoint', telephone: C.fixRaw, contactType: 'birou' }],
+        contactPoint: [{ '@type': 'ContactPoint', telephone: C.telRaw, email: C.email, contactType: 'asistență rutieră', availableLanguage: 'ro' }, { '@type': 'ContactPoint', telephone: C.fixRaw, contactType: 'birou' }],
         areaServed: C.areas.map(a => ({ '@type': 'Place', name: a })),
         openingHoursSpecification: [{ '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], opens: '00:00', closes: '23:59' }],
         makesOffer: services.map(s => ({ '@type': 'Offer', name: s.t })),
@@ -700,12 +701,16 @@ function chooser() {
 
 /* ----------------------------------------------------------------- SCRIE FIȘIERE */
 const out = (f, c) => { fs.writeFileSync(path.join(__dirname, f), c); console.log('✓', f, (c.length / 1024).toFixed(1) + 'kb'); };
+/* pagina principală = varianta industrial, servită la rădăcina domeniului (/) */
+out('index.html', page('industrial', { home: true }));
+/* variantele rămân accesibile (noindex) — industrial.html e păstrat pt. linkuri vechi, clean/neon ca demo */
 ['industrial', 'clean', 'neon'].forEach(t => out(`${t}.html`, page(t)));
-out('index.html', chooser());
+/* selectorul de design (unealtă internă, noindex) */
+out('variante.html', chooser());
 Object.keys(legalDocs).forEach(slug => out(`${slug}.html`, legalPage(slug)));
 out('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>${C.site}/industrial.html</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+  <url><loc>${C.site}/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
   <url><loc>${C.site}/confidentialitate.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>${C.site}/cookies.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>${C.site}/termeni.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>

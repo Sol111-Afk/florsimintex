@@ -1,8 +1,9 @@
 /* FLORSIMINTEX · service worker — funcționează offline (util în zone fără semnal).
    Precache esențialul; restul cache-first cu reîmprospătare în fundal. */
-const CACHE = 'flx-v3';
+const CACHE = 'flx-v4';
 const CORE = [
-  'industrial.html',
+  './',
+  'index.html',
   'css/base.css',
   'css/components.css',
   'css/theme-industrial.css',
@@ -39,7 +40,7 @@ self.addEventListener('fetch', (e) => {
   // navigări: network-first, fallback la pagina cache-uită (offline)
   if (req.mode === 'navigate') {
     e.respondWith(
-      fetch(req).catch(() => caches.match('industrial.html'))
+      fetch(req).catch(() => caches.match('index.html') || caches.match('./'))
     );
     return;
   }

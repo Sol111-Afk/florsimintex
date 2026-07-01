@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://sol111-afk.github.io/florsimintex/sitemap.xml
+Sitemap: https://tractari-auto-comarnic.ro/sitemap.xml

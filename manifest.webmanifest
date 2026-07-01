@@ -2,7 +2,7 @@
   "name": "FLORSIMINTEX — Tractări & asistență rutieră non-stop",
   "short_name": "FLORSIMINTEX",
   "description": "Tractări și asistență rutieră non-stop pe DN1, Valea Prahovei. Vulcanizare, utilaje, spălătorie, ATV.",
-  "start_url": "industrial.html",
+  "start_url": ".",
   "scope": "./",
   "display": "standalone",
   "background_color": "#0d0e11",
