@@ -47,14 +47,6 @@ function pic(name, alt, sizes, opts = {}) {
           </picture>`;
 }
 
-/* ----------------------------------------------------------------- FAQ (folosit și pentru FAQPage schema) */
-const faqs = [
-  ['Cât costă o tractare?', 'Depinde de distanță și de situație. Îți spunem prețul la telefon înainte să pornim — fără surprize.'],
-  ['Cât de repede ajungeți?', 'Avem echipe permanente pe DN1, în zona Comarnic–Sinaia. Suni, îți spunem în câte minute ajungem la tine.'],
-  ['Ridicați mașini din șanț sau după accident?', 'Da. Avem trolii electrice, hidraulice și manuale și autoplatforme moderne pentru orice situație — pană, accident sau defecțiune.'],
-  ['Tractați și camioane sau utilaje?', 'Da. Transportăm utilaje grele și agabaritic cu trailer dedicat, plus dube, remorci, bărci și rulote.'],
-];
-
 /* ----------------------------------------------------------------- ICONIȚE SVG (line, stroke currentColor) */
 const ico = {
   tow: '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M4 32h26V18h8l6 7v7h-4"/><path d="M30 18l-9-9-7 7"/><circle cx="13" cy="36" r="4"/><circle cx="38" cy="36" r="4"/><path d="M8 32V22h6"/></svg>',
@@ -318,24 +310,6 @@ function body() {
       </div>
       <div class="review-dots" aria-label="Navigare recenzii"></div>
       <a class="reviews-all reveal" href="${C.mapsTractari}" target="_blank" rel="noopener">${ico.star}<span>Vezi toate recenziile pe Google</span></a>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section class="section" id="faq">
-    <div class="wrap">
-      <header class="sec-head reveal">
-        <p class="kicker">Întrebări frecvente</p>
-        <h2>Ce ne întreabă lumea cel mai des</h2>
-        <p class="sub">Răspunsuri scurte și oneste. Restul ți le spunem la telefon.</p>
-      </header>
-      <div class="faq">
-        ${faqs.map(([q, a]) => `
-        <details class="faq-item reveal">
-          <summary>${q}<span class="faq-ico" aria-hidden="true"></span></summary>
-          <div class="faq-a"><p>${a}</p></div>
-        </details>`).join('')}
-      </div>
     </div>
   </section>
 
@@ -611,8 +585,7 @@ function page(theme, opts = {}) {
         aggregateRating: { '@type': 'AggregateRating', ratingValue: '5.0', reviewCount: '3', bestRating: '5' },
         review: reviews.map(r => ({ '@type': 'Review', author: { '@type': 'Person', name: r.n }, reviewRating: { '@type': 'Rating', ratingValue: r.s, bestRating: 5 }, reviewBody: r.t }))
       },
-      ...services.map((s, i) => ({ '@type': 'Service', '@id': `${C.site}/#service-${i}`, name: s.t, description: s.d, serviceType: s.t, provider: { '@id': bizId }, areaServed: C.areas })),
-      { '@type': 'FAQPage', '@id': `${C.site}/#faq`, mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }
+      ...services.map((s, i) => ({ '@type': 'Service', '@id': `${C.site}/#service-${i}`, name: s.t, description: s.d, serviceType: s.t, provider: { '@id': bizId }, areaServed: C.areas }))
     ]
   };
   return `<!doctype html>
