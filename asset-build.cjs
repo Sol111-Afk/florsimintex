@@ -4,7 +4,7 @@
 const { chromium } = require('/home/sol/Projects/cig-cli/node_modules/playwright');
 const fs = require('fs'); const path = require('path'); const { execFileSync } = require('child_process');
 const DIR = path.join(__dirname, 'assets/images');
-const TMP = '/tmp/claude-1000/-home-sol/d7e096d5-d2e5-431b-9dae-c62327d9399c/scratchpad/imgtmp';
+const TMP = path.join(require('os').tmpdir(), 'flx-imgtmp');
 fs.mkdirSync(TMP, { recursive: true });
 const WIDTHS = [480, 800, 1200, 1600];
 const files = fs.readdirSync(DIR).filter(f => /\.jpg$/i.test(f));
